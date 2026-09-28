@@ -1,10 +1,18 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Geist, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 
+const sans = Geist({ subsets: ['latin'], variable: '--font-geist' })
+const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '--font-instrument' })
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: {
+    default: 'The Felt Report — Poker strategy without the noise',
+    template: '%s · The Felt Report',
+  },
+  description:
+    "Math-first No-limit Hold'em lessons on pot odds, ranges, position, bankroll management, and the mental game.",
   generator: 'v0.app',
   icons: {
     icon: [
@@ -26,11 +34,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'light',
+  themeColor: '#f6f2e9',
 }
 
 export default function RootLayout({
@@ -39,8 +44,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" className={`${sans.variable} ${serif.variable} light bg-background`}>
+      <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
